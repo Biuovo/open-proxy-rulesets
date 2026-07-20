@@ -1,10 +1,19 @@
-# mihomo-sing-box-ruleset
+# open-proxy-rulesets
 
-Remote rule set repository for sing-box / mihomo.
+Unified proxy rulesets for **Mihomo**, **sing-box**, and **Surge**.
 
-## Files
+## Sources
 
-- `cn-domain.srs`
-- `cn-ip.srs`
+Thanks to the maintainers of:
 
-These are updated automatically by GitHub Actions every 24 hours.
+- https://github.com/nekolsd/geoip
+- https://github.com/Rabbit-Spec/Surge
+- https://github.com/blackmatrix7/ios_rule_script
+
+## Generated outputs
+
+- `mihomo/*.mrs`
+- `sing-box/*.srs`
+- `surge/*.list`
+
+Updated automatically every 24 hours.
