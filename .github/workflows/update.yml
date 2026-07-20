@@ -1,0 +1,33 @@
+name: Update rule sets
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 20 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Update rules
+        run: |
+          chmod +x ./update.sh
+          ./update.sh
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- cn-domain.srs cn-ip.srs SHA256SUMS; then
+            echo "No changes."
+            exit 0
+          fi
+          git add cn-domain.srs cn-ip.srs SHA256SUMS
+          git commit -m "Update rule sets"
+          git push
