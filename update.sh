@@ -68,8 +68,14 @@ fetch "$WORKDIR/telegram.list" https://raw.githubusercontent.com/Rabbit-Spec/Sur
 fetch "$WORKDIR/domestic-media.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/ChinaMedia.list
 fetch "$WORKDIR/foreign-media.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/GlobalMedia.list
 fetch "$WORKDIR/proxy.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Proxy.list
-fetch "$WORKDIR/apple-cn.list" https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list
-fetch "$WORKDIR/games-cn.list" https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/GameDownloadCN/GameDownloadCN.list
+fetch "$WORKDIR/apple-cn.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/apple-cn.list
+fetch "$WORKDIR/games-cn.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/games-cn.list
+fetch "$WORKDIR/category-porn.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.list
+fetch "$WORKDIR/private.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list
+fetch "$WORKDIR/privateip.raw" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list
+fetch "$WORKDIR/ai.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.list
+fetch "$WORKDIR/ads.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.list
+fetch "$WORKDIR/download.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-android-app-download.list
 for f in Telegram Facebook Instagram Meta; do
   fetch "$WORKDIR/$f.list" "https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/$f.list" || true
 done
@@ -92,6 +98,21 @@ def clean_line(raw):
     if not s or s.startswith('#') or s.startswith('//') or s.startswith(';'):
         return None
     return s
+
+def parse_plain_domains(path):
+    d={'domain':[], 'domain_suffix':[], 'domain_keyword':[], 'ip_cidr':[]}
+    for raw in path.read_text(errors='ignore').splitlines():
+        line=clean_line(raw)
+        if not line: continue
+        if line.startswith('+.'):
+            val=line[2:]
+            if valid_domain(val): d['domain_suffix'].append(val)
+        elif line.startswith('.'):
+            val=line[1:]
+            if valid_domain(val): d['domain_suffix'].append(val)
+        elif valid_domain(line):
+            d['domain'].append(line)
+    return {k:sorted(set(v)) for k,v in d.items()}
 
 def parse_surge(path):
     d={'domain':[], 'domain_suffix':[], 'domain_keyword':[], 'ip_cidr':[]}
@@ -118,6 +139,13 @@ def write_outputs(name, parsed):
     for v in parsed.get('domain_keyword',[]): domains.append('keyword:'+v)
     domain_text='\n'.join(sorted(set(domains)))
     (wd/f'{name}.domain.txt').write_text(domain_text + ('\n' if domain_text else ''))
+    surge=[]
+    for v in parsed.get('domain',[]): surge.append(f'DOMAIN,{v}')
+    for v in parsed.get('domain_suffix',[]): surge.append(f'DOMAIN-SUFFIX,{v}')
+    for v in parsed.get('domain_keyword',[]): surge.append(f'DOMAIN-KEYWORD,{v}')
+    for v in parsed.get('ip_cidr',[]): surge.append(f'IP-CIDR,{v},no-resolve')
+    surge_text='\n'.join(sorted(set(surge)))
+    (wd/f'{name}.surge.list').write_text(surge_text + ('\n' if surge_text else ''))
     cidrs=parsed.get('ip_cidr',[])
     ip_text='\n'.join(cidrs)
     (wd/f'{name}.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
@@ -125,6 +153,8 @@ def write_outputs(name, parsed):
 names=['cn-domain','telegram','domestic-media','foreign-media','foreign-chat','proxy','apple-cn','games-cn']
 for n in names:
     write_outputs(n, parse_surge(wd/f'{n}.list'))
+for n in ['category-porn','private','ai','ads','download']:
+    write_outputs(n, parse_plain_domains(wd/f'{n}.list'))
 
 cidrs=[]
 for raw in (wd/'cn-ip.raw').read_text().splitlines():
@@ -137,12 +167,28 @@ cidrs=sorted(set(cidrs))
 ip_text='\n'.join(cidrs)
 (wd/'cn-ip.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 (wd/'cn-ip.domain.txt').write_text('')
+
+privateip=[]
+for raw in (wd/'privateip.raw').read_text().splitlines():
+    line=raw.strip()
+    if not line or line.startswith('#'): continue
+    try: ipaddress.ip_network(line, strict=False); privateip.append(line)
+    except Exception: pass
+privateip=sorted(set(privateip))
+(wd/'privateip.json').write_text(json.dumps({'version':1,'rules':[{'ip_cidr':privateip}]}, separators=(',',':')))
+privateip_text='\n'.join(privateip)
+(wd/'privateip.ip.txt').write_text(privateip_text + ('\n' if privateip_text else ''))
+(wd/'privateip.domain.txt').write_text('')
+(wd/'privateip.surge.list').write_text('\n'.join(f'IP-CIDR,{x},no-resolve' for x in privateip) + ('\n' if privateip else ''))
 PY
 
 rm -rf mihomo sing-box surge
 mkdir -p mihomo sing-box surge
-for name in cn-domain telegram domestic-media foreign-media foreign-chat proxy apple-cn games-cn; do
-  cp "$WORKDIR/$name.list" "surge/$name.list"
+for name in cn-domain telegram domestic-media foreign-media foreign-chat proxy apple-cn games-cn category-porn private ai ads download; do
+  case "$name" in
+    category-porn|private|ai|ads|download) cp "$WORKDIR/$name.surge.list" "surge/$name.list" ;;
+    *) cp "$WORKDIR/$name.list" "surge/$name.list" ;;
+  esac
   if [ -s "$WORKDIR/$name.domain.txt" ]; then
     $MH convert-ruleset domain text "$WORKDIR/$name.domain.txt" "mihomo/$name.mrs"
   elif [ -s "$WORKDIR/$name.ip.txt" ]; then
@@ -158,5 +204,9 @@ cp "$WORKDIR/cn-ip.raw" surge/cn-ip.list
 $MH convert-ruleset ipcidr text "$WORKDIR/cn-ip.ip.txt" mihomo/cn-ip.mrs
 $SB rule-set compile "$WORKDIR/cn-ip.json" -o sing-box/cn-ip.srs
 $SB rule-set decompile sing-box/cn-ip.srs -o "$WORKDIR/cn-ip.check.json" >/dev/null
+cp "$WORKDIR/privateip.surge.list" surge/privateip.list
+$MH convert-ruleset ipcidr text "$WORKDIR/privateip.ip.txt" mihomo/privateip.mrs
+$SB rule-set compile "$WORKDIR/privateip.json" -o sing-box/privateip.srs
+$SB rule-set decompile sing-box/privateip.srs -o "$WORKDIR/privateip.check.json" >/dev/null
 
 sha256sum mihomo/*.mrs sing-box/*.srs surge/*.list > SHA256SUMS
