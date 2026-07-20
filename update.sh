@@ -62,14 +62,14 @@ echo "Using mihomo: $($MH -v | head -n1)"
 echo "Using sing-box: $($SB version | head -n1)"
 
 # Source mapping
-fetch "$WORKDIR/cn-domain.list" https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/ChinaMaxNoIP/ChinaMaxNoIP.list
+fetch "$WORKDIR/cn-domain.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/China.list
 fetch "$WORKDIR/cn-ip.raw" https://raw.githubusercontent.com/nekolsd/geoip/release/text/cn.txt
 fetch "$WORKDIR/telegram.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Telegram.list
 fetch "$WORKDIR/domestic-media.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/ChinaMedia.list
 fetch "$WORKDIR/foreign-media.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/GlobalMedia.list
 fetch "$WORKDIR/proxy.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Proxy.list
-fetch "$WORKDIR/apple-cn.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Apple.list
-fetch "$WORKDIR/games-cn.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Game.list
+fetch "$WORKDIR/apple-cn.list" https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list
+fetch "$WORKDIR/games-cn.list" https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Game/GameDownloadCN/GameDownloadCN.list
 for f in Telegram Facebook Instagram Meta; do
   fetch "$WORKDIR/$f.list" "https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/$f.list" || true
 done
@@ -116,9 +116,11 @@ def write_outputs(name, parsed):
     for v in parsed.get('domain',[]): domains.append(v)
     for v in parsed.get('domain_suffix',[]): domains.append('.'+v)
     for v in parsed.get('domain_keyword',[]): domains.append('keyword:'+v)
-    (wd/f'{name}.domain.txt').write_text('\n'.join(sorted(set(domains)))+'\n')
+    domain_text='\n'.join(sorted(set(domains)))
+    (wd/f'{name}.domain.txt').write_text(domain_text + ('\n' if domain_text else ''))
     cidrs=parsed.get('ip_cidr',[])
-    (wd/f'{name}.ip.txt').write_text('\n'.join(cidrs)+'\n')
+    ip_text='\n'.join(cidrs)
+    (wd/f'{name}.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 
 names=['cn-domain','telegram','domestic-media','foreign-media','foreign-chat','proxy','apple-cn','games-cn']
 for n in names:
@@ -132,7 +134,8 @@ for raw in (wd/'cn-ip.raw').read_text().splitlines():
     except Exception: pass
 cidrs=sorted(set(cidrs))
 (wd/'cn-ip.json').write_text(json.dumps({'version':1,'rules':[{'ip_cidr':cidrs}]}, separators=(',',':')))
-(wd/'cn-ip.ip.txt').write_text('\n'.join(cidrs)+'\n')
+ip_text='\n'.join(cidrs)
+(wd/'cn-ip.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 (wd/'cn-ip.domain.txt').write_text('')
 PY
 

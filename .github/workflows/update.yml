@@ -24,10 +24,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- cn-domain.srs cn-ip.srs SHA256SUMS; then
+          if git diff --quiet -- mihomo sing-box surge SHA256SUMS; then
             echo "No changes."
             exit 0
           fi
-          git add cn-domain.srs cn-ip.srs SHA256SUMS
+          git add mihomo sing-box surge SHA256SUMS
           git commit -m "Update rule sets"
           git push
