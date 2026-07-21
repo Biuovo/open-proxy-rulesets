@@ -1,34 +1,3 @@
-
-# ======= 上游同步规则 ========
-# AUTHOR: Rabbit-Spec
-# AUTHOR: blackmatrix7
-# DOMAIN-KEYWORD: 1
-# DOMAIN-SUFFIX: 26
-# DOMAIN-SUFFIX: 29
-# DOMAIN-SUFFIX: 4
-# DOMAIN: 1
-# IP-CIDR: 11
-# IP-CIDR: 6
-# NAME: Discord
-# NAME: Twitter
-# NAME: Whatsapp
-# NAME: 深巷有喵的「Facebook」规则
-# NAME: 深巷有喵的「Instagram」规则
-# NAME: 深巷有喵的「Meta」规则
-# NAME: 深巷有喵的「Telegram」规则
-# REPO: https://github.com/Rabbit-Spec/Surge
-# REPO: https://github.com/blackmatrix7/ios_rule_script
-# TOTAL: 16
-# TOTAL: 17
-# TOTAL: 29
-# TOTAL: 33
-# TOTAL: 4
-# TOTAL: 43
-# TOTAL: 570
-# UPDATED: 2025-06-06 09:16:55
-# UPDATED: 2025-06-06 09:16:56
-# UPDATED: 2025-09-28 02:08:26
-# UPDATED: 2026.07.21 05:16:08
 DOMAIN,graph.facebook.com
 DOMAIN-KEYWORD,facebook
 DOMAIN-KEYWORD,fbcdn
@@ -461,9 +430,6 @@ DOMAIN-SUFFIX,hhvm.com
 DOMAIN-SUFFIX,hifacebook.info
 DOMAIN-SUFFIX,howtohackfacebook-account.com
 DOMAIN-SUFFIX,hsfacebook.com
-DOMAIN-SUFFIX,httpfacebook.com
-DOMAIN-SUFFIX,httpsfacebook.com
-DOMAIN-SUFFIX,httpwwwfacebook.com
 DOMAIN-SUFFIX,i.org
 DOMAIN-SUFFIX,ig.me
 DOMAIN-SUFFIX,igcdn.com
@@ -645,8 +611,6 @@ DOMAIN-SUFFIX,x.com
 DOMAIN-SUFFIX,yogalayout.com
 DOMAIN-SUFFIX,zuckerberg.com
 DOMAIN-SUFFIX,zuckerberg.net
-IP-ASN,32934,no-resolve
-IP-ASN,63293,no-resolve
 IP-CIDR,108.168.176.192/26,no-resolve
 IP-CIDR,108.168.177.0/27,no-resolve
 IP-CIDR,108.168.180.96/27,no-resolve

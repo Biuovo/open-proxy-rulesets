@@ -1,79 +1,3 @@
-# NAME: 深巷有喵的「Proxy」规则
-# AUTHOR: Rabbit-Spec
-# REPO: https://github.com/Rabbit-Spec/Surge
-# UPDATED: 2026.07.21 05:16:08
-# TOTAL: 6932
-
-# ======= 手动维护规则 ========
-# SNBFORUMS
-DOMAIN-SUFFIX,snbforums.com
-# Asuswrt‑Merlin
-DOMAIN-SUFFIX,asuswrt-merlin.net
-# CalDigit
-DOMAIN-SUFFIX,caldigit.com
-# OnlyFans
-DOMAIN-SUFFIX,onlyfans.com
-# Dbrand
-DOMAIN-SUFFIX,dbrand.com
-# HomeAssistant
-DOMAIN-SUFFIX,home-assistant.io
-# BetterDisplay
-DOMAIN-SUFFIX,betterdisplay.pro
-# TikTok
-DOMAIN-SUFFIX,tiktokcdn.com
-
-# ======= GitHub ========
-DOMAIN-SUFFIX,atom.io
-DOMAIN-SUFFIX,dependabot.com
-DOMAIN-SUFFIX,ghcr.io
-DOMAIN-SUFFIX,git.io
-DOMAIN-SUFFIX,github-atom-io-herokuapp-com.freetls.fastly.net
-DOMAIN-SUFFIX,github-avatars.oss-cn-hongkong.aliyuncs.com
-DOMAIN-SUFFIX,github-cloud.s3.amazonaws.com
-DOMAIN-SUFFIX,github.blog
-DOMAIN-SUFFIX,github.com
-DOMAIN-SUFFIX,github.community
-DOMAIN-SUFFIX,github.dev
-DOMAIN-SUFFIX,github.io
-DOMAIN-SUFFIX,githubapp.com
-DOMAIN-SUFFIX,githubassets.com
-DOMAIN-SUFFIX,githubcopilot.com
-DOMAIN-SUFFIX,githubhackathon.com
-DOMAIN-SUFFIX,githubnext.com
-DOMAIN-SUFFIX,githubpreview.dev
-DOMAIN-SUFFIX,githubstatus.com
-DOMAIN-SUFFIX,githubuniverse.com
-DOMAIN-SUFFIX,githubusercontent.com
-DOMAIN-SUFFIX,myoctocat.com
-DOMAIN-SUFFIX,npm.community
-DOMAIN-SUFFIX,npmjs.com
-DOMAIN-SUFFIX,npmjs.org
-DOMAIN-SUFFIX,opensource.guide
-DOMAIN-SUFFIX,rawgit.com
-DOMAIN-SUFFIX,rawgithub.com
-DOMAIN-SUFFIX,repo.new
-DOMAIN-SUFFIX,thegithubshop.com
-DOMAIN-KEYWORD,github
-
-# ======= Telegram ========
-IP-CIDR,91.105.192.0/23,no-resolve
-IP-CIDR,91.108.4.0/22,no-resolve
-IP-CIDR,91.108.8.0/21,no-resolve
-IP-CIDR,91.108.16.0/21,no-resolve
-IP-CIDR,91.108.56.0/22,no-resolve
-IP-CIDR,95.161.64.0/20,no-resolve
-IP-CIDR,139.59.210.98/32,no-resolve
-IP-CIDR,149.154.160.0/20,no-resolve
-IP-CIDR,185.76.151.0/24,no-resolve
-IP-CIDR,194.221.250.50/32,no-resolve
-IP-CIDR,196.55.216.167/32,no-resolve
-IP-CIDR6,2001:b28:f23d::/48,no-resolve
-IP-CIDR6,2001:b28:f23f::/48,no-resolve
-IP-CIDR6,2001:67c:4e8::/48,no-resolve
-IP-CIDR6,2001:b28:f23c::/48,no-resolve
-IP-CIDR6,2a0a:f280::/32,no-resolve
-
-# ======= Proxy ========
 DOMAIN,api.waqi.info
 DOMAIN,aqi.aqicn.org
 DOMAIN,assets-priconne-redive-us.akamaized.net
@@ -83,6 +7,33 @@ DOMAIN,developer.apple.com
 DOMAIN,login.microsoftonline.com
 DOMAIN,testflight.apple.com
 DOMAIN,voice.telephony.goog
+DOMAIN-KEYWORD,1drv
+DOMAIN-KEYWORD,1e100
+DOMAIN-KEYWORD,abema
+DOMAIN-KEYWORD,appledaily
+DOMAIN-KEYWORD,avtb
+DOMAIN-KEYWORD,beetalk
+DOMAIN-KEYWORD,blogspot
+DOMAIN-KEYWORD,dlercloud
+DOMAIN-KEYWORD,dropbox
+DOMAIN-KEYWORD,facebook
+DOMAIN-KEYWORD,fbcdn
+DOMAIN-KEYWORD,github
+DOMAIN-KEYWORD,gmail
+DOMAIN-KEYWORD,google
+DOMAIN-KEYWORD,instagram
+DOMAIN-KEYWORD,onedrive
+DOMAIN-KEYWORD,paypal
+DOMAIN-KEYWORD,porn
+DOMAIN-KEYWORD,sci-hub
+DOMAIN-KEYWORD,skydrive
+DOMAIN-KEYWORD,spotify
+DOMAIN-KEYWORD,telegram
+DOMAIN-KEYWORD,ttvnw
+DOMAIN-KEYWORD,twitter
+DOMAIN-KEYWORD,uk-live
+DOMAIN-KEYWORD,whatsapp
+DOMAIN-KEYWORD,youtube
 DOMAIN-SUFFIX,000webhost.com
 DOMAIN-SUFFIX,030buy.com
 DOMAIN-SUFFIX,0rz.tw
@@ -547,6 +498,7 @@ DOMAIN-SUFFIX,assembla.com
 DOMAIN-SUFFIX,assets.nxtrace.org
 DOMAIN-SUFFIX,assimp.org
 DOMAIN-SUFFIX,astrill.com
+DOMAIN-SUFFIX,asuswrt-merlin.net
 DOMAIN-SUFFIX,async.be
 DOMAIN-SUFFIX,atc.org.au
 DOMAIN-SUFFIX,atchinese.com
@@ -555,6 +507,7 @@ DOMAIN-SUFFIX,athenaeizou.com
 DOMAIN-SUFFIX,atlanta168.com
 DOMAIN-SUFFIX,atlaspost.com
 DOMAIN-SUFFIX,atnext.com
+DOMAIN-SUFFIX,atom.io
 DOMAIN-SUFFIX,att.com
 DOMAIN-SUFFIX,audacy.com
 DOMAIN-SUFFIX,audionow.com
@@ -697,6 +650,7 @@ DOMAIN-SUFFIX,bestvpnusa.com
 DOMAIN-SUFFIX,bet365.com
 DOMAIN-SUFFIX,betaclouds.net
 DOMAIN-SUFFIX,betfair.com
+DOMAIN-SUFFIX,betterdisplay.pro
 DOMAIN-SUFFIX,bettergpt.chat
 DOMAIN-SUFFIX,betterhash.net
 DOMAIN-SUFFIX,betternet.co
@@ -955,6 +909,7 @@ DOMAIN-SUFFIX,cactusvpn.com
 DOMAIN-SUFFIX,cafepress.com
 DOMAIN-SUFFIX,cahr.org.tw
 DOMAIN-SUFFIX,calameo.com
+DOMAIN-SUFFIX,caldigit.com
 DOMAIN-SUFFIX,calebelston.com
 DOMAIN-SUFFIX,calendarz.com
 DOMAIN-SUFFIX,calgarychinese.ca
@@ -1469,6 +1424,7 @@ DOMAIN-SUFFIX,dazn.com
 DOMAIN-SUFFIX,db.tt
 DOMAIN-SUFFIX,dbc.hk
 DOMAIN-SUFFIX,dbgjd.com
+DOMAIN-SUFFIX,dbrand.com
 DOMAIN-SUFFIX,dcard.tw
 DOMAIN-SUFFIX,dcmilitary.com
 DOMAIN-SUFFIX,ddc.com.tw
@@ -1496,6 +1452,7 @@ DOMAIN-SUFFIX,democrats.org
 DOMAIN-SUFFIX,demosisto.hk
 DOMAIN-SUFFIX,deno.com
 DOMAIN-SUFFIX,deno.dev
+DOMAIN-SUFFIX,dependabot.com
 DOMAIN-SUFFIX,depositphotos.com
 DOMAIN-SUFFIX,derekhsu.homeip.net
 DOMAIN-SUFFIX,desc.se
@@ -2358,6 +2315,7 @@ DOMAIN-SUFFIX,gfx.ms
 DOMAIN-SUFFIX,ggpht.com
 DOMAIN-SUFFIX,ggssl.com
 DOMAIN-SUFFIX,ghanely.me
+DOMAIN-SUFFIX,ghcr.io
 DOMAIN-SUFFIX,ghidra-sre.org
 DOMAIN-SUFFIX,ghostnoteapp.com
 DOMAIN-SUFFIX,ghostpath.com
@@ -2368,10 +2326,28 @@ DOMAIN-SUFFIX,giga-web.jp
 DOMAIN-SUFFIX,gigacircle.com
 DOMAIN-SUFFIX,giganews.com
 DOMAIN-SUFFIX,girlbanker.com
+DOMAIN-SUFFIX,git.io
 DOMAIN-SUFFIX,gitbook.com
 DOMAIN-SUFFIX,gitbook.io
 DOMAIN-SUFFIX,gitbooks.io
 DOMAIN-SUFFIX,githack.com
+DOMAIN-SUFFIX,github-atom-io-herokuapp-com.freetls.fastly.net
+DOMAIN-SUFFIX,github-avatars.oss-cn-hongkong.aliyuncs.com
+DOMAIN-SUFFIX,github-cloud.s3.amazonaws.com
+DOMAIN-SUFFIX,github.blog
+DOMAIN-SUFFIX,github.com
+DOMAIN-SUFFIX,github.community
+DOMAIN-SUFFIX,github.dev
+DOMAIN-SUFFIX,github.io
+DOMAIN-SUFFIX,githubapp.com
+DOMAIN-SUFFIX,githubassets.com
+DOMAIN-SUFFIX,githubcopilot.com
+DOMAIN-SUFFIX,githubhackathon.com
+DOMAIN-SUFFIX,githubnext.com
+DOMAIN-SUFFIX,githubpreview.dev
+DOMAIN-SUFFIX,githubstatus.com
+DOMAIN-SUFFIX,githubuniverse.com
+DOMAIN-SUFFIX,githubusercontent.com
 DOMAIN-SUFFIX,gitlab.com
 DOMAIN-SUFFIX,gitlab.io
 DOMAIN-SUFFIX,gitlab.net
@@ -2725,6 +2701,7 @@ DOMAIN-SUFFIX,hola.com
 DOMAIN-SUFFIX,hola.org
 DOMAIN-SUFFIX,holymountaincn.com
 DOMAIN-SUFFIX,holyspiritspeaks.org
+DOMAIN-SUFFIX,home-assistant.io
 DOMAIN-SUFFIX,home.saxo
 DOMAIN-SUFFIX,home.so-net.net.tw
 DOMAIN-SUFFIX,homedepot.com
@@ -2781,8 +2758,6 @@ DOMAIN-SUFFIX,ht.ly
 DOMAIN-SUFFIX,htkou.net
 DOMAIN-SUFFIX,htl.li
 DOMAIN-SUFFIX,html5rocks.com
-DOMAIN-SUFFIX,https443.net
-DOMAIN-SUFFIX,https443.org
 DOMAIN-SUFFIX,htx.com
 DOMAIN-SUFFIX,hua-yue.net
 DOMAIN-SUFFIX,huaglad.com
@@ -3891,6 +3866,7 @@ DOMAIN-SUFFIX,mymusic.net.tw
 DOMAIN-SUFFIX,mynetav.net
 DOMAIN-SUFFIX,mynetav.org
 DOMAIN-SUFFIX,mynumber.org
+DOMAIN-SUFFIX,myoctocat.com
 DOMAIN-SUFFIX,myparagliding.com
 DOMAIN-SUFFIX,mypicture.info
 DOMAIN-SUFFIX,mypikpak.com
@@ -4101,6 +4077,9 @@ DOMAIN-SUFFIX,nowtorrents.com
 DOMAIN-SUFFIX,noxinfluencer.com
 DOMAIN-SUFFIX,noypf.com
 DOMAIN-SUFFIX,npa.go.jp
+DOMAIN-SUFFIX,npm.community
+DOMAIN-SUFFIX,npmjs.com
+DOMAIN-SUFFIX,npmjs.org
 DOMAIN-SUFFIX,npnt.me
 DOMAIN-SUFFIX,nps.gov
 DOMAIN-SUFFIX,npsboost.com
@@ -4225,6 +4204,7 @@ DOMAIN-SUFFIX,onevps.com
 DOMAIN-SUFFIX,onion.city
 DOMAIN-SUFFIX,onion.ly
 DOMAIN-SUFFIX,onlinecha.com
+DOMAIN-SUFFIX,onlyfans.com
 DOMAIN-SUFFIX,onlygayvideo.com
 DOMAIN-SUFFIX,onlytweets.com
 DOMAIN-SUFFIX,onmoon.com
@@ -4254,6 +4234,7 @@ DOMAIN-SUFFIX,openervpn.in
 DOMAIN-SUFFIX,openid.net
 DOMAIN-SUFFIX,openleaks.org
 DOMAIN-SUFFIX,opensea.io
+DOMAIN-SUFFIX,opensource.guide
 DOMAIN-SUFFIX,openstreetmap.org
 DOMAIN-SUFFIX,opentech.fund
 DOMAIN-SUFFIX,openvpn.net
@@ -4722,6 +4703,8 @@ DOMAIN-SUFFIX,raremovie.cc
 DOMAIN-SUFFIX,raremovie.net
 DOMAIN-SUFFIX,rateyourmusic.com
 DOMAIN-SUFFIX,rationalwiki.org
+DOMAIN-SUFFIX,rawgit.com
+DOMAIN-SUFFIX,rawgithub.com
 DOMAIN-SUFFIX,rawstory.com
 DOMAIN-SUFFIX,razyboard.com
 DOMAIN-SUFFIX,rcinet.ca
@@ -4771,6 +4754,7 @@ DOMAIN-SUFFIX,religionnews.com
 DOMAIN-SUFFIX,religioustolerance.org
 DOMAIN-SUFFIX,rentry.co
 DOMAIN-SUFFIX,renyurenquan.org
+DOMAIN-SUFFIX,repo.new
 DOMAIN-SUFFIX,resilio.com
 DOMAIN-SUFFIX,resistchina.org
 DOMAIN-SUFFIX,restofworld.org
@@ -5134,6 +5118,7 @@ DOMAIN-SUFFIX,smyxy.org
 DOMAIN-SUFFIX,snapchat.com
 DOMAIN-SUFFIX,snapseed.com
 DOMAIN-SUFFIX,snaptu.com
+DOMAIN-SUFFIX,snbforums.com
 DOMAIN-SUFFIX,sndcdn.com
 DOMAIN-SUFFIX,sneakme.net
 DOMAIN-SUFFIX,snowlionpub.com
@@ -5530,6 +5515,7 @@ DOMAIN-SUFFIX,theepochtimes.com
 DOMAIN-SUFFIX,thefrontier.hk
 DOMAIN-SUFFIX,thegay.com
 DOMAIN-SUFFIX,thegioitinhoc.vn
+DOMAIN-SUFFIX,thegithubshop.com
 DOMAIN-SUFFIX,thegly.com
 DOMAIN-SUFFIX,theguardian.com
 DOMAIN-SUFFIX,thehansindia.com
@@ -5685,6 +5671,7 @@ DOMAIN-SUFFIX,tigervpn.com
 DOMAIN-SUFFIX,tiktok.com
 DOMAIN-SUFFIX,tiktokcdn-eu.com
 DOMAIN-SUFFIX,tiktokcdn-us.com
+DOMAIN-SUFFIX,tiktokcdn.com
 DOMAIN-SUFFIX,tiktokv.com
 DOMAIN-SUFFIX,tiktokv.us
 DOMAIN-SUFFIX,tiltbrush.com
@@ -6827,32 +6814,6 @@ DOMAIN-SUFFIX,zyxel.com
 DOMAIN-SUFFIX,zzcartoon.com
 DOMAIN-SUFFIX,zzcloud.me
 DOMAIN-SUFFIX,zzux.com
-DOMAIN-KEYWORD,1drv
-DOMAIN-KEYWORD,1e100
-DOMAIN-KEYWORD,abema
-DOMAIN-KEYWORD,appledaily
-DOMAIN-KEYWORD,avtb
-DOMAIN-KEYWORD,beetalk
-DOMAIN-KEYWORD,blogspot
-DOMAIN-KEYWORD,dlercloud
-DOMAIN-KEYWORD,dropbox
-DOMAIN-KEYWORD,facebook
-DOMAIN-KEYWORD,fbcdn
-DOMAIN-KEYWORD,gmail
-DOMAIN-KEYWORD,google
-DOMAIN-KEYWORD,instagram
-DOMAIN-KEYWORD,onedrive
-DOMAIN-KEYWORD,paypal
-DOMAIN-KEYWORD,porn
-DOMAIN-KEYWORD,sci-hub
-DOMAIN-KEYWORD,skydrive
-DOMAIN-KEYWORD,spotify
-DOMAIN-KEYWORD,telegram
-DOMAIN-KEYWORD,ttvnw
-DOMAIN-KEYWORD,twitter
-DOMAIN-KEYWORD,uk-live
-DOMAIN-KEYWORD,whatsapp
-DOMAIN-KEYWORD,youtube
 IP-CIDR,1.201.0.0/24,no-resolve
 IP-CIDR,103.2.28.0/22,no-resolve
 IP-CIDR,103.246.56.0/22,no-resolve
@@ -6878,8 +6839,10 @@ IP-CIDR,125.6.190.0/24,no-resolve
 IP-CIDR,129.134.0.0/17,no-resolve
 IP-CIDR,13.32.0.0/15,no-resolve
 IP-CIDR,13.35.0.0/17,no-resolve
+IP-CIDR,139.59.210.98/32,no-resolve
 IP-CIDR,14.102.250.18/31,no-resolve
 IP-CIDR,147.92.128.0/17,no-resolve
+IP-CIDR,149.154.160.0/20,no-resolve
 IP-CIDR,157.240.0.0/17,no-resolve
 IP-CIDR,158.85.224.160/27,no-resolve
 IP-CIDR,158.85.46.128/27,no-resolve
@@ -6901,6 +6864,9 @@ IP-CIDR,180.163.151.162/32,no-resolve
 IP-CIDR,180.163.151.34/32,no-resolve
 IP-CIDR,184.173.128.0/17,no-resolve
 IP-CIDR,185.60.216.0/22,no-resolve
+IP-CIDR,185.76.151.0/24,no-resolve
+IP-CIDR,194.221.250.50/32,no-resolve
+IP-CIDR,196.55.216.167/32,no-resolve
 IP-CIDR,203.104.103.0/24,no-resolve
 IP-CIDR,203.104.128.0/19,no-resolve
 IP-CIDR,203.174.66.64/26,no-resolve
@@ -6942,13 +6908,15 @@ IP-CIDR,74.119.76.0/22,no-resolve
 IP-CIDR,74.125.0.0/16,no-resolve
 IP-CIDR,74.86.0.0/16,no-resolve
 IP-CIDR,75.126.0.0/16,no-resolve
+IP-CIDR,91.105.192.0/23,no-resolve
 IP-CIDR,91.108.0.0/16,no-resolve
-USER-AGENT,Duolingo*
-USER-AGENT,OneDrive*
-USER-AGENT,PayPal*
-USER-AGENT,Roam*
-USER-AGENT,WhatsApp*
-USER-AGENT,battleroyale*
-USER-AGENT,com.apple.trustd*
-USER-AGENT,hearthstone*
-
+IP-CIDR,91.108.16.0/21,no-resolve
+IP-CIDR,91.108.4.0/22,no-resolve
+IP-CIDR,91.108.56.0/22,no-resolve
+IP-CIDR,91.108.8.0/21,no-resolve
+IP-CIDR,95.161.64.0/20,no-resolve
+IP-CIDR6,2001:67c:4e8::/48,no-resolve
+IP-CIDR6,2001:b28:f23c::/48,no-resolve
+IP-CIDR6,2001:b28:f23d::/48,no-resolve
+IP-CIDR6,2001:b28:f23f::/48,no-resolve
+IP-CIDR6,2a0a:f280::/32,no-resolve

@@ -130,6 +130,14 @@ def parse_surge(path):
             except Exception: pass
     return {k:sorted(set(v)) for k,v in d.items()}
 
+def surge_ip_rule(cidr):
+    try:
+        net=ipaddress.ip_network(cidr, strict=False)
+        typ='IP-CIDR6' if net.version == 6 else 'IP-CIDR'
+    except Exception:
+        typ='IP-CIDR6' if ':' in cidr else 'IP-CIDR'
+    return f'{typ},{cidr},no-resolve'
+
 def write_outputs(name, parsed):
     rule={k:v for k,v in parsed.items() if v}
     (wd/f'{name}.json').write_text(json.dumps({'version':1,'rules':[rule] if rule else []}, ensure_ascii=False, separators=(',',':')))
@@ -143,7 +151,7 @@ def write_outputs(name, parsed):
     for v in parsed.get('domain',[]): surge.append(f'DOMAIN,{v}')
     for v in parsed.get('domain_suffix',[]): surge.append(f'DOMAIN-SUFFIX,{v}')
     for v in parsed.get('domain_keyword',[]): surge.append(f'DOMAIN-KEYWORD,{v}')
-    for v in parsed.get('ip_cidr',[]): surge.append(f'IP-CIDR,{v},no-resolve')
+    for v in parsed.get('ip_cidr',[]): surge.append(surge_ip_rule(v))
     surge_text='\n'.join(sorted(set(surge)))
     (wd/f'{name}.surge.list').write_text(surge_text + ('\n' if surge_text else ''))
     cidrs=parsed.get('ip_cidr',[])
@@ -167,6 +175,7 @@ cidrs=sorted(set(cidrs))
 ip_text='\n'.join(cidrs)
 (wd/'cn-ip.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 (wd/'cn-ip.domain.txt').write_text('')
+(wd/'cn-ip.surge.list').write_text('\n'.join(surge_ip_rule(x) for x in cidrs) + ('\n' if cidrs else ''))
 
 privateip=[]
 for raw in (wd/'privateip.raw').read_text().splitlines():
@@ -179,16 +188,13 @@ privateip=sorted(set(privateip))
 privateip_text='\n'.join(privateip)
 (wd/'privateip.ip.txt').write_text(privateip_text + ('\n' if privateip_text else ''))
 (wd/'privateip.domain.txt').write_text('')
-(wd/'privateip.surge.list').write_text('\n'.join(f'IP-CIDR,{x},no-resolve' for x in privateip) + ('\n' if privateip else ''))
+(wd/'privateip.surge.list').write_text('\n'.join(surge_ip_rule(x) for x in privateip) + ('\n' if privateip else ''))
 PY
 
 rm -rf mihomo sing-box surge
 mkdir -p mihomo sing-box surge
 for name in cn-domain telegram domestic-media foreign-media foreign-chat proxy apple-cn games-cn category-porn private ai ads download; do
-  case "$name" in
-    category-porn|private|ai|ads|download) cp "$WORKDIR/$name.surge.list" "surge/$name.list" ;;
-    *) cp "$WORKDIR/$name.list" "surge/$name.list" ;;
-  esac
+cp "$WORKDIR/$name.surge.list" "surge/$name.list"
   if [ -s "$WORKDIR/$name.domain.txt" ]; then
     $MH convert-ruleset domain text "$WORKDIR/$name.domain.txt" "mihomo/$name.mrs"
   elif [ -s "$WORKDIR/$name.ip.txt" ]; then
@@ -200,7 +206,7 @@ for name in cn-domain telegram domestic-media foreign-media foreign-chat proxy a
   $SB rule-set compile "$WORKDIR/$name.json" -o "sing-box/$name.srs"
   $SB rule-set decompile "sing-box/$name.srs" -o "$WORKDIR/$name.check.json" >/dev/null
 done
-cp "$WORKDIR/cn-ip.raw" surge/cn-ip.list
+cp "$WORKDIR/cn-ip.surge.list" surge/cn-ip.list
 $MH convert-ruleset ipcidr text "$WORKDIR/cn-ip.ip.txt" mihomo/cn-ip.mrs
 $SB rule-set compile "$WORKDIR/cn-ip.json" -o sing-box/cn-ip.srs
 $SB rule-set decompile sing-box/cn-ip.srs -o "$WORKDIR/cn-ip.check.json" >/dev/null
