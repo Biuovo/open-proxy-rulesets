@@ -65,8 +65,8 @@ echo "Using sing-box: $($SB version | head -n1)"
 fetch "$WORKDIR/cn-domain.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/China.list
 fetch "$WORKDIR/cn-ip.raw" https://raw.githubusercontent.com/nekolsd/geoip/release/text/cn.txt
 fetch "$WORKDIR/telegram.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Telegram.list
-fetch "$WORKDIR/domestic-media.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/ChinaMedia.list
-fetch "$WORKDIR/foreign-media.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/GlobalMedia.list
+fetch "$WORKDIR/ChinaMedia.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/ChinaMedia.list
+fetch "$WORKDIR/GlobalMedia.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/GlobalMedia.list
 fetch "$WORKDIR/proxy.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Proxy.list
 fetch "$WORKDIR/apple-cn.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/apple-cn.list
 fetch "$WORKDIR/games-cn.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/games-cn.list
@@ -74,8 +74,9 @@ fetch "$WORKDIR/category-porn.list" https://raw.githubusercontent.com/MetaCubeX/
 fetch "$WORKDIR/private.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list
 fetch "$WORKDIR/privateip.raw" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list
 fetch "$WORKDIR/ai.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.list
-fetch "$WORKDIR/ads.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads-all.list
-fetch "$WORKDIR/download.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-android-app-download.list
+fetch "$WORKDIR/ads.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads.list
+fetch "$WORKDIR/download.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/trackerslist.list
+fetch "$WORKDIR/speedtest.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/networktest.list
 for f in Telegram Facebook Instagram Meta; do
   fetch "$WORKDIR/$f.list" "https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/$f.list" || true
 done
@@ -158,10 +159,10 @@ def write_outputs(name, parsed):
     ip_text='\n'.join(cidrs)
     (wd/f'{name}.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 
-names=['cn-domain','telegram','domestic-media','foreign-media','foreign-chat','proxy','apple-cn','games-cn']
+names=['cn-domain','telegram','ChinaMedia','GlobalMedia','foreign-chat','proxy','apple-cn','games-cn','download','speedtest']
 for n in names:
     write_outputs(n, parse_surge(wd/f'{n}.list'))
-for n in ['category-porn','private','ai','ads','download']:
+for n in ['category-porn','private','ai','ads']:
     write_outputs(n, parse_plain_domains(wd/f'{n}.list'))
 
 cidrs=[]
@@ -193,7 +194,7 @@ PY
 
 rm -rf mihomo sing-box surge
 mkdir -p mihomo sing-box surge
-for name in cn-domain telegram domestic-media foreign-media foreign-chat proxy apple-cn games-cn category-porn private ai ads download; do
+for name in cn-domain telegram ChinaMedia GlobalMedia foreign-chat proxy apple-cn games-cn category-porn private ai ads download speedtest; do
 cp "$WORKDIR/$name.surge.list" "surge/$name.list"
   if [ -s "$WORKDIR/$name.domain.txt" ]; then
     $MH convert-ruleset domain text "$WORKDIR/$name.domain.txt" "mihomo/$name.mrs"
