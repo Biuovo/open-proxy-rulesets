@@ -62,28 +62,28 @@ echo "Using mihomo: $($MH -v | head -n1)"
 echo "Using sing-box: $($SB version | head -n1)"
 
 # Source mapping
-fetch "$WORKDIR/cn-domain.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/China.list
-fetch "$WORKDIR/cn-ip.raw" https://raw.githubusercontent.com/nekolsd/geoip/release/text/cn.txt
-fetch "$WORKDIR/telegram.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Telegram.list
+fetch "$WORKDIR/CNDomain.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/China.list
+fetch "$WORKDIR/CNIP.raw" https://raw.githubusercontent.com/nekolsd/geoip/release/text/cn.txt
+fetch "$WORKDIR/Telegram.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Telegram.list
 fetch "$WORKDIR/ChinaMedia.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/ChinaMedia.list
 fetch "$WORKDIR/GlobalMedia.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/GlobalMedia.list
-fetch "$WORKDIR/proxy.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Proxy.list
-fetch "$WORKDIR/apple-cn.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/apple-cn.list
-fetch "$WORKDIR/games-cn.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/games-cn.list
-fetch "$WORKDIR/category-porn.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.list
-fetch "$WORKDIR/private.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list
-fetch "$WORKDIR/privateip.raw" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list
-fetch "$WORKDIR/ai.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.list
-fetch "$WORKDIR/ads.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads.list
-fetch "$WORKDIR/download.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/trackerslist.list
-fetch "$WORKDIR/speedtest.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/networktest.list
+fetch "$WORKDIR/Proxy.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Proxy.list
+fetch "$WORKDIR/AppleCN.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/apple-cn.list
+fetch "$WORKDIR/GamesCN.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/games-cn.list
+fetch "$WORKDIR/CategoryPorn.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.list
+fetch "$WORKDIR/Private.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list
+fetch "$WORKDIR/PrivateIP.raw" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list
+fetch "$WORKDIR/AI.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.list
+fetch "$WORKDIR/Ads.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads.list
+fetch "$WORKDIR/Download.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/trackerslist.list
+fetch "$WORKDIR/Speedtest.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/networktest.list
 for f in Telegram Facebook Instagram Meta; do
   fetch "$WORKDIR/$f.list" "https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/$f.list" || true
 done
 for f in Discord Whatsapp Twitter; do
   fetch "$WORKDIR/$f.list" "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/$f/$f.list" || true
 done
-cat "$WORKDIR"/Telegram.list "$WORKDIR"/Facebook.list "$WORKDIR"/Instagram.list "$WORKDIR"/Meta.list "$WORKDIR"/Discord.list "$WORKDIR"/Whatsapp.list "$WORKDIR"/Twitter.list 2>/dev/null | sort -u > "$WORKDIR/foreign-chat.list"
+cat "$WORKDIR"/Telegram.list "$WORKDIR"/Facebook.list "$WORKDIR"/Instagram.list "$WORKDIR"/Meta.list "$WORKDIR"/Discord.list "$WORKDIR"/Whatsapp.list "$WORKDIR"/Twitter.list 2>/dev/null | sort -u > "$WORKDIR/ForeignChat.list"
 
 python3 - "$WORKDIR" <<'PY'
 from pathlib import Path
@@ -159,42 +159,42 @@ def write_outputs(name, parsed):
     ip_text='\n'.join(cidrs)
     (wd/f'{name}.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 
-names=['cn-domain','telegram','ChinaMedia','GlobalMedia','foreign-chat','proxy','apple-cn','games-cn','download','speedtest']
+names=['CNDomain','Telegram','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Download','Speedtest']
 for n in names:
     write_outputs(n, parse_surge(wd/f'{n}.list'))
-for n in ['category-porn','private','ai','ads']:
+for n in ['CategoryPorn','Private','AI','Ads']:
     write_outputs(n, parse_plain_domains(wd/f'{n}.list'))
 
 cidrs=[]
-for raw in (wd/'cn-ip.raw').read_text().splitlines():
+for raw in (wd/'CNIP.raw').read_text().splitlines():
     line=raw.strip()
     if not line or line.startswith('#'): continue
     try: ipaddress.ip_network(line, strict=False); cidrs.append(line)
     except Exception: pass
 cidrs=sorted(set(cidrs))
-(wd/'cn-ip.json').write_text(json.dumps({'version':1,'rules':[{'ip_cidr':cidrs}]}, separators=(',',':')))
+(wd/'CNIP.json').write_text(json.dumps({'version':1,'rules':[{'ip_cidr':cidrs}]}, separators=(',',':')))
 ip_text='\n'.join(cidrs)
-(wd/'cn-ip.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
-(wd/'cn-ip.domain.txt').write_text('')
-(wd/'cn-ip.surge.list').write_text('\n'.join(surge_ip_rule(x) for x in cidrs) + ('\n' if cidrs else ''))
+(wd/'CNIP.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
+(wd/'CNIP.domain.txt').write_text('')
+(wd/'CNIP.surge.list').write_text('\n'.join(surge_ip_rule(x) for x in cidrs) + ('\n' if cidrs else ''))
 
 privateip=[]
-for raw in (wd/'privateip.raw').read_text().splitlines():
+for raw in (wd/'PrivateIP.raw').read_text().splitlines():
     line=raw.strip()
     if not line or line.startswith('#'): continue
     try: ipaddress.ip_network(line, strict=False); privateip.append(line)
     except Exception: pass
 privateip=sorted(set(privateip))
-(wd/'privateip.json').write_text(json.dumps({'version':1,'rules':[{'ip_cidr':privateip}]}, separators=(',',':')))
+(wd/'PrivateIP.json').write_text(json.dumps({'version':1,'rules':[{'ip_cidr':privateip}]}, separators=(',',':')))
 privateip_text='\n'.join(privateip)
-(wd/'privateip.ip.txt').write_text(privateip_text + ('\n' if privateip_text else ''))
-(wd/'privateip.domain.txt').write_text('')
-(wd/'privateip.surge.list').write_text('\n'.join(surge_ip_rule(x) for x in privateip) + ('\n' if privateip else ''))
+(wd/'PrivateIP.ip.txt').write_text(privateip_text + ('\n' if privateip_text else ''))
+(wd/'PrivateIP.domain.txt').write_text('')
+(wd/'PrivateIP.surge.list').write_text('\n'.join(surge_ip_rule(x) for x in privateip) + ('\n' if privateip else ''))
 PY
 
 rm -rf mihomo sing-box surge
 mkdir -p mihomo sing-box surge
-for name in cn-domain telegram ChinaMedia GlobalMedia foreign-chat proxy apple-cn games-cn category-porn private ai ads download speedtest; do
+for name in CNDomain Telegram ChinaMedia GlobalMedia ForeignChat Proxy AppleCN GamesCN CategoryPorn Private AI Ads Download Speedtest; do
 cp "$WORKDIR/$name.surge.list" "surge/$name.list"
   if [ -s "$WORKDIR/$name.domain.txt" ]; then
     $MH convert-ruleset domain text "$WORKDIR/$name.domain.txt" "mihomo/$name.mrs"
@@ -207,13 +207,13 @@ cp "$WORKDIR/$name.surge.list" "surge/$name.list"
   $SB rule-set compile "$WORKDIR/$name.json" -o "sing-box/$name.srs"
   $SB rule-set decompile "sing-box/$name.srs" -o "$WORKDIR/$name.check.json" >/dev/null
 done
-cp "$WORKDIR/cn-ip.surge.list" surge/cn-ip.list
-$MH convert-ruleset ipcidr text "$WORKDIR/cn-ip.ip.txt" mihomo/cn-ip.mrs
-$SB rule-set compile "$WORKDIR/cn-ip.json" -o sing-box/cn-ip.srs
-$SB rule-set decompile sing-box/cn-ip.srs -o "$WORKDIR/cn-ip.check.json" >/dev/null
-cp "$WORKDIR/privateip.surge.list" surge/privateip.list
-$MH convert-ruleset ipcidr text "$WORKDIR/privateip.ip.txt" mihomo/privateip.mrs
-$SB rule-set compile "$WORKDIR/privateip.json" -o sing-box/privateip.srs
-$SB rule-set decompile sing-box/privateip.srs -o "$WORKDIR/privateip.check.json" >/dev/null
+cp "$WORKDIR/CNIP.surge.list" surge/CNIP.list
+$MH convert-ruleset ipcidr text "$WORKDIR/CNIP.ip.txt" mihomo/CNIP.mrs
+$SB rule-set compile "$WORKDIR/CNIP.json" -o sing-box/CNIP.srs
+$SB rule-set decompile sing-box/CNIP.srs -o "$WORKDIR/CNIP.check.json" >/dev/null
+cp "$WORKDIR/PrivateIP.surge.list" surge/PrivateIP.list
+$MH convert-ruleset ipcidr text "$WORKDIR/PrivateIP.ip.txt" mihomo/PrivateIP.mrs
+$SB rule-set compile "$WORKDIR/PrivateIP.json" -o sing-box/PrivateIP.srs
+$SB rule-set decompile sing-box/PrivateIP.srs -o "$WORKDIR/PrivateIP.check.json" >/dev/null
 
 sha256sum mihomo/*.mrs sing-box/*.srs surge/*.list > SHA256SUMS
