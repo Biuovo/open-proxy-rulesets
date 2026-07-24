@@ -64,16 +64,11 @@ echo "Using sing-box: $($SB version | head -n1)"
 # Source mapping
 fetch "$WORKDIR/CNDomain.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/China.list
 fetch "$WORKDIR/CNIP.raw" https://raw.githubusercontent.com/nekolsd/geoip/release/text/cn.txt
-fetch "$WORKDIR/Telegram.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Telegram.list
+fetch "$WORKDIR/TelegramIP.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Telegram.list
+fetch "$WORKDIR/Telegram.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.list
 fetch "$WORKDIR/ChinaMedia.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/ChinaMedia.list
 fetch "$WORKDIR/GlobalMedia.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/GlobalMedia.list
 fetch "$WORKDIR/Proxy.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Proxy.list
-# Keep Telegram as a dedicated IP ruleset. Remove exact Telegram IP rules from Proxy
-# so sing-box can resolve first, then match Telegram before CNIP.
-if [ -s "$WORKDIR/Telegram.list" ] && [ -s "$WORKDIR/Proxy.list" ]; then
-  grep -Fvx -f "$WORKDIR/Telegram.list" "$WORKDIR/Proxy.list" > "$WORKDIR/Proxy.no-telegram.list" || true
-  mv "$WORKDIR/Proxy.no-telegram.list" "$WORKDIR/Proxy.list"
-fi
 fetch "$WORKDIR/AppleCN.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/apple-cn.list
 fetch "$WORKDIR/GamesCN.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/games-cn.list
 fetch "$WORKDIR/CategoryPorn.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.list
@@ -88,7 +83,7 @@ fetch "$WORKDIR/YouTube.list" https://raw.githubusercontent.com/MetaCubeX/meta-r
 fetch "$WORKDIR/GitHub.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.list
 fetch "$WORKDIR/TikTok.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.list
 fetch "$WORKDIR/Twitter.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.list
-for f in Telegram Facebook Instagram Meta; do
+for f in Facebook Instagram Meta; do
   fetch "$WORKDIR/$f.list" "https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/$f.list" || true
 done
 for f in Discord Whatsapp Twitter; do
@@ -170,10 +165,10 @@ def write_outputs(name, parsed):
     ip_text='\n'.join(cidrs)
     (wd/f'{name}.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 
-names=['CNDomain','Telegram','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Download','Speedtest']
+names=['CNDomain','TelegramIP','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Download','Speedtest']
 for n in names:
     write_outputs(n, parse_surge(wd/f'{n}.list'))
-for n in ['CategoryPorn','Private','AI','Ads','Google','YouTube','GitHub','TikTok','Twitter']:
+for n in ['Telegram','CategoryPorn','Private','AI','Ads','Google','YouTube','GitHub','TikTok','Twitter']:
     write_outputs(n, parse_plain_domains(wd/f'{n}.list'))
 
 cidrs=[]
@@ -205,7 +200,7 @@ PY
 
 rm -rf mihomo sing-box surge
 mkdir -p mihomo sing-box surge
-for name in CNDomain Telegram ChinaMedia GlobalMedia ForeignChat Proxy AppleCN GamesCN CategoryPorn Private AI Ads Download Speedtest Google YouTube GitHub TikTok Twitter; do
+for name in CNDomain Telegram TelegramIP ChinaMedia GlobalMedia ForeignChat Proxy AppleCN GamesCN CategoryPorn Private AI Ads Download Speedtest Google YouTube GitHub TikTok Twitter; do
 cp "$WORKDIR/$name.surge.list" "surge/$name.list"
   if [ -s "$WORKDIR/$name.domain.txt" ]; then
     $MH convert-ruleset domain text "$WORKDIR/$name.domain.txt" "mihomo/$name.mrs"
