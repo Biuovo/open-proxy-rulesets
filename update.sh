@@ -68,6 +68,12 @@ fetch "$WORKDIR/Telegram.list" https://raw.githubusercontent.com/Rabbit-Spec/Sur
 fetch "$WORKDIR/ChinaMedia.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/ChinaMedia.list
 fetch "$WORKDIR/GlobalMedia.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/GlobalMedia.list
 fetch "$WORKDIR/Proxy.list" https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/Proxy.list
+# Keep Telegram as a dedicated IP ruleset. Remove exact Telegram IP rules from Proxy
+# so sing-box can resolve first, then match Telegram before CNIP.
+if [ -s "$WORKDIR/Telegram.list" ] && [ -s "$WORKDIR/Proxy.list" ]; then
+  grep -Fvx -f "$WORKDIR/Telegram.list" "$WORKDIR/Proxy.list" > "$WORKDIR/Proxy.no-telegram.list" || true
+  mv "$WORKDIR/Proxy.no-telegram.list" "$WORKDIR/Proxy.list"
+fi
 fetch "$WORKDIR/AppleCN.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/apple-cn.list
 fetch "$WORKDIR/GamesCN.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/games-cn.list
 fetch "$WORKDIR/CategoryPorn.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.list
