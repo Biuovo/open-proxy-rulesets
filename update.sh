@@ -77,6 +77,11 @@ fetch "$WORKDIR/AI.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-
 fetch "$WORKDIR/Ads.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads.list
 fetch "$WORKDIR/Download.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/trackerslist.list
 fetch "$WORKDIR/Speedtest.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/networktest.list
+fetch "$WORKDIR/Google.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list
+fetch "$WORKDIR/YouTube.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.list
+fetch "$WORKDIR/GitHub.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.list
+fetch "$WORKDIR/TikTok.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.list
+fetch "$WORKDIR/Twitter.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.list
 for f in Telegram Facebook Instagram Meta; do
   fetch "$WORKDIR/$f.list" "https://raw.githubusercontent.com/Rabbit-Spec/Surge/Master/Rules/$f.list" || true
 done
@@ -162,7 +167,7 @@ def write_outputs(name, parsed):
 names=['CNDomain','Telegram','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Download','Speedtest']
 for n in names:
     write_outputs(n, parse_surge(wd/f'{n}.list'))
-for n in ['CategoryPorn','Private','AI','Ads']:
+for n in ['CategoryPorn','Private','AI','Ads','Google','YouTube','GitHub','TikTok','Twitter']:
     write_outputs(n, parse_plain_domains(wd/f'{n}.list'))
 
 cidrs=[]
@@ -194,7 +199,7 @@ PY
 
 rm -rf mihomo sing-box surge
 mkdir -p mihomo sing-box surge
-for name in CNDomain Telegram ChinaMedia GlobalMedia ForeignChat Proxy AppleCN GamesCN CategoryPorn Private AI Ads Download Speedtest; do
+for name in CNDomain Telegram ChinaMedia GlobalMedia ForeignChat Proxy AppleCN GamesCN CategoryPorn Private AI Ads Download Speedtest Google YouTube GitHub TikTok Twitter; do
 cp "$WORKDIR/$name.surge.list" "surge/$name.list"
   if [ -s "$WORKDIR/$name.domain.txt" ]; then
     $MH convert-ruleset domain text "$WORKDIR/$name.domain.txt" "mihomo/$name.mrs"
