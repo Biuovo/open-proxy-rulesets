@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
 
       - name: Update rules
         run: |
@@ -24,10 +24,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- mihomo sing-box surge SHA256SUMS; then
+          
+          # 暂存所有修改（包括新创建的文件和删除的文件）
+          git add -A
+          
+          # 检查整个工作区是否有变化
+          if git diff --cached --quiet; then
             echo "No changes."
             exit 0
           fi
-          git add mihomo sing-box surge SHA256SUMS
+          
           git commit -m "Update rule sets"
           git push
