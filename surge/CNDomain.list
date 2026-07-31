@@ -1,7 +1,9 @@
 DOMAIN,analytics.strava.com
 DOMAIN,blzddist1-a.akamaihd.net
 DOMAIN,cdn.angruo.com
+DOMAIN,cdp.cloud.unity3d.com
 DOMAIN,client.amplifi.com
+DOMAIN,config.uca.cloud.unity3d.com
 DOMAIN,download.jetbrains.com
 DOMAIN,download.microsoft.com
 DOMAIN,images-cn.ssl-images-amazon.com
@@ -3043,7 +3045,6 @@ DOMAIN-SUFFIX,tendis.net
 DOMAIN-SUFFIX,tenpay.com
 DOMAIN-SUFFIX,tenxcloud.com
 DOMAIN-SUFFIX,test-cignacmb.com
-DOMAIN-SUFFIX,test-ipv6.com
 DOMAIN-SUFFIX,testwaf.com
 DOMAIN-SUFFIX,texasholdemcup.com
 DOMAIN-SUFFIX,texasholdemcup.net
