@@ -18,6 +18,8 @@ DOMAIN,s2.mzstatic.com
 DOMAIN,s3.mzstatic.com
 DOMAIN,s4.mzstatic.com
 DOMAIN,s5.mzstatic.com
+DOMAIN,tj-pod2-smp-device.apple.com
+DOMAIN,tj-pod3-smp-device.apple.com
 DOMAIN-SUFFIX,a1.mzstatic.com
 DOMAIN-SUFFIX,a2.mzstatic.com
 DOMAIN-SUFFIX,a3.mzstatic.com
