@@ -62,7 +62,7 @@ echo "Using mihomo: $($MH -v | head -n1)"
 echo "Using sing-box: $($SB version | head -n1)"
 
 # Source mapping
-fetch "$WORKDIR/CNDomain.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.list
+fetch "$WORKDIR/CN.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.list
 # CNIP intentionally keeps nekolsd as its upstream source.
 fetch "$WORKDIR/CNIP.raw" https://raw.githubusercontent.com/nekolsd/geoip/release/text/cn.txt
 fetch "$WORKDIR/TelegramIP.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.list
@@ -77,7 +77,7 @@ fetch "$WORKDIR/Private.list" https://raw.githubusercontent.com/MetaCubeX/meta-r
 fetch "$WORKDIR/PrivateIP.raw" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list
 fetch "$WORKDIR/AI.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.list
 fetch "$WORKDIR/Ads.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads.list
-fetch "$WORKDIR/Download.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-public-tracker.list
+fetch "$WORKDIR/Download.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/trackerslist.list
 fetch "$WORKDIR/Speedtest.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-speedtest.list
 fetch "$WORKDIR/Google.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list
 fetch "$WORKDIR/YouTube.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.list
@@ -158,7 +158,7 @@ def write_outputs(name, parsed):
     ip_text='\n'.join(cidrs)
     (wd/f'{name}.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 
-domain_names=['CNDomain','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Download','Speedtest','Telegram','CategoryPorn','Private','AI','Ads','Google','YouTube','GitHub','TikTok','Twitter']
+domain_names=['CN','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Download','Speedtest','Telegram','CategoryPorn','Private','AI','Ads','Google','YouTube','GitHub','TikTok','Twitter']
 for n in domain_names:
     write_outputs(n, parse_plain_domains(wd/f'{n}.list'))
 write_outputs('TelegramIP', parse_plain_ip(wd/'TelegramIP.list'))
@@ -192,7 +192,7 @@ PY
 
 rm -rf mihomo sing-box surge
 mkdir -p mihomo sing-box surge
-for name in CNDomain Telegram TelegramIP ChinaMedia GlobalMedia ForeignChat Proxy AppleCN GamesCN CategoryPorn Private AI Ads Download Speedtest Google YouTube GitHub TikTok Twitter; do
+for name in CN Telegram TelegramIP ChinaMedia GlobalMedia ForeignChat Proxy AppleCN GamesCN CategoryPorn Private AI Ads Download Speedtest Google YouTube GitHub TikTok Twitter; do
 cp "$WORKDIR/$name.surge.list" "surge/$name.list"
   if [ -s "$WORKDIR/$name.domain.txt" ]; then
     $MH convert-ruleset domain text "$WORKDIR/$name.domain.txt" "mihomo/$name.mrs"

@@ -4,7 +4,10 @@ Unified proxy rulesets for **Mihomo**, **sing-box**, and **Surge**.
 
 ## Sources
 
-All rule sets use [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat), except `CNIP`, which intentionally keeps [nekolsd/geoip](https://github.com/nekolsd/geoip) as its upstream source.
+All rule sets use [MetaCubeX/meta-rules-dat](https://github.com/MetaCubeX/meta-rules-dat), with these intentional exceptions:
+
+- `CNIP`: [nekolsd/geoip](https://github.com/nekolsd/geoip)
+- `Download`: [DustinWin/domain-list-custom](https://github.com/DustinWin/domain-list-custom) (`trackerslist.list`)
 
 ## Generated outputs
 
