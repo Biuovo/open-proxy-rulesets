@@ -62,28 +62,36 @@ echo "Using mihomo: $($MH -v | head -n1)"
 echo "Using sing-box: $($SB version | head -n1)"
 
 # Source mapping
-fetch "$WORKDIR/CN.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.list
+META_GEOSITE=https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite
+META_GEOIP=https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip
+DUSTIN=https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains
+
+# DustinWin fused domain rules.
+fetch "$WORKDIR/CN.list" "$DUSTIN/cn.list"
+fetch "$WORKDIR/GlobalMedia.list" "$DUSTIN/media.list"
+fetch "$WORKDIR/Proxy.list" "$DUSTIN/proxy.list"
+fetch "$WORKDIR/AppleCN.list" "$DUSTIN/apple-cn.list"
+fetch "$WORKDIR/GamesCN.list" "$DUSTIN/games-cn.list"
+fetch "$WORKDIR/Private.list" "$DUSTIN/private.list"
+fetch "$WORKDIR/AI.list" "$DUSTIN/ai.list"
+fetch "$WORKDIR/Ads.list" "$DUSTIN/ads.list"
+fetch "$WORKDIR/Download.list" "$DUSTIN/trackerslist.list"
+fetch "$WORKDIR/Speedtest.list" "$DUSTIN/networktest.list"
+fetch "$WORKDIR/YouTube.list" "$DUSTIN/youtube.list"
+fetch "$WORKDIR/TikTok.list" "$DUSTIN/tiktok.list"
+
+# MetaCubeX fills categories not provided by DustinWin.
+fetch "$WORKDIR/TelegramIP.list" "$META_GEOIP/telegram.list"
+fetch "$WORKDIR/Telegram.list" "$META_GEOSITE/telegram.list"
+fetch "$WORKDIR/ChinaMedia.list" "$META_GEOSITE/category-media-cn.list"
+fetch "$WORKDIR/CategoryPorn.list" "$META_GEOSITE/category-porn.list"
+fetch "$WORKDIR/PrivateIP.raw" "$META_GEOIP/private.list"
+fetch "$WORKDIR/Google.list" "$META_GEOSITE/google.list"
+fetch "$WORKDIR/GitHub.list" "$META_GEOSITE/github.list"
+fetch "$WORKDIR/Twitter.list" "$META_GEOSITE/twitter.list"
+
 # CNIP intentionally keeps nekolsd as its upstream source.
 fetch "$WORKDIR/CNIP.raw" https://raw.githubusercontent.com/nekolsd/geoip/release/text/cn.txt
-fetch "$WORKDIR/TelegramIP.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.list
-fetch "$WORKDIR/Telegram.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.list
-fetch "$WORKDIR/ChinaMedia.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-media-cn.list
-fetch "$WORKDIR/GlobalMedia.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-media.list
-fetch "$WORKDIR/Proxy.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.list
-fetch "$WORKDIR/AppleCN.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.list
-fetch "$WORKDIR/GamesCN.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-games-cn.list
-fetch "$WORKDIR/CategoryPorn.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-porn.list
-fetch "$WORKDIR/Private.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.list
-fetch "$WORKDIR/PrivateIP.raw" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.list
-fetch "$WORKDIR/AI.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ai-!cn.list
-fetch "$WORKDIR/Ads.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-ads.list
-fetch "$WORKDIR/Download.list" https://raw.githubusercontent.com/DustinWin/domain-list-custom/domains/trackerslist.list
-fetch "$WORKDIR/Speedtest.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/category-speedtest.list
-fetch "$WORKDIR/Google.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.list
-fetch "$WORKDIR/YouTube.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.list
-fetch "$WORKDIR/GitHub.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.list
-fetch "$WORKDIR/TikTok.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.list
-fetch "$WORKDIR/Twitter.list" https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/twitter.list
 for f in Facebook Instagram Meta Discord Whatsapp; do
   fetch "$WORKDIR/$f.list" "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/${f,,}.list"
 done
@@ -171,10 +179,12 @@ def write_outputs(name, parsed):
     ip_text='\n'.join(cidrs)
     (wd/f'{name}.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 
-domain_names=['CN','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Speedtest','Telegram','CategoryPorn','Private','AI','Ads','Google','YouTube','GitHub','TikTok','Twitter']
-for n in domain_names:
+plain_domain_names=['ChinaMedia','ForeignChat','Telegram','CategoryPorn','Google','GitHub','Twitter']
+for n in plain_domain_names:
     write_outputs(n, parse_plain_domains(wd/f'{n}.list'))
-write_outputs('Download', parse_classical_domains(wd/'Download.list'))
+classical_domain_names=['CN','GlobalMedia','Proxy','AppleCN','GamesCN','Private','AI','Ads','Download','Speedtest','YouTube','TikTok']
+for n in classical_domain_names:
+    write_outputs(n, parse_classical_domains(wd/f'{n}.list'))
 write_outputs('TelegramIP', parse_plain_ip(wd/'TelegramIP.list'))
 
 cidrs=[]
