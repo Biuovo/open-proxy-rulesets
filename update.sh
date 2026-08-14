@@ -119,6 +119,19 @@ def parse_plain_domains(path):
             d['domain'].append(line)
     return {k:sorted(set(v)) for k,v in d.items()}
 
+def parse_classical_domains(path):
+    d={'domain':[], 'domain_suffix':[], 'domain_keyword':[], 'ip_cidr':[]}
+    for raw in path.read_text(errors='ignore').splitlines():
+        line=clean_line(raw)
+        if not line: continue
+        parts=[p.strip() for p in line.split(',', 2)]
+        if len(parts)<2: continue
+        typ,val=parts[0].upper(),parts[1]
+        if typ=='DOMAIN' and valid_domain(val): d['domain'].append(val)
+        elif typ=='DOMAIN-SUFFIX' and valid_domain(val): d['domain_suffix'].append(val)
+        elif typ=='DOMAIN-KEYWORD' and val: d['domain_keyword'].append(val)
+    return {k:sorted(set(v)) for k,v in d.items()}
+
 def parse_plain_ip(path):
     d={'domain':[], 'domain_suffix':[], 'domain_keyword':[], 'ip_cidr':[]}
     for raw in path.read_text(errors='ignore').splitlines():
@@ -158,9 +171,10 @@ def write_outputs(name, parsed):
     ip_text='\n'.join(cidrs)
     (wd/f'{name}.ip.txt').write_text(ip_text + ('\n' if ip_text else ''))
 
-domain_names=['CN','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Download','Speedtest','Telegram','CategoryPorn','Private','AI','Ads','Google','YouTube','GitHub','TikTok','Twitter']
+domain_names=['CN','ChinaMedia','GlobalMedia','ForeignChat','Proxy','AppleCN','GamesCN','Speedtest','Telegram','CategoryPorn','Private','AI','Ads','Google','YouTube','GitHub','TikTok','Twitter']
 for n in domain_names:
     write_outputs(n, parse_plain_domains(wd/f'{n}.list'))
+write_outputs('Download', parse_classical_domains(wd/'Download.list'))
 write_outputs('TelegramIP', parse_plain_ip(wd/'TelegramIP.list'))
 
 cidrs=[]
