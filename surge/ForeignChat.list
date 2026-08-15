@@ -1,4 +1,4 @@
-DOMAIN,fbcdn-a.akamaihd.net
+DOMAIN,developers.facebook.com
 DOMAIN,hammerandchisel.ssl.zendesk.com
 DOMAIN-SUFFIX,aboutfacebook.com
 DOMAIN-SUFFIX,accessfacebookfromschool.com
@@ -415,12 +415,12 @@ DOMAIN-SUFFIX,gacebook.com
 DOMAIN-SUFFIX,gameroom.com
 DOMAIN-SUFFIX,gfacecbook.com
 DOMAIN-SUFFIX,graph-fallback.instagram.com
-DOMAIN-SUFFIX,graph-fallback.instagram.comdevelopers.facebook.com
+DOMAIN-SUFFIX,graph-fallback.instagram.comfbcdn-a.akamaihd.net
 DOMAIN-SUFFIX,graph.instagram.com
 DOMAIN-SUFFIX,graph.org
 DOMAIN-SUFFIX,graph.whatsapp.com
-DOMAIN-SUFFIX,graph.whatsapp.net
 DOMAIN-SUFFIX,graph.whatsapp.net+.twitter.jp
+DOMAIN-SUFFIX,graph.whatsapp.netdiscord-attachments-uploads-prd.storage.googleapis.com
 DOMAIN-SUFFIX,groups.com
 DOMAIN-SUFFIX,hackerfacebook.com
 DOMAIN-SUFFIX,hackfacebook.com
@@ -535,8 +535,8 @@ DOMAIN-SUFFIX,opengraphprotocol.com
 DOMAIN-SUFFIX,opengraphprotocol.org
 DOMAIN-SUFFIX,parse.com
 DOMAIN-SUFFIX,periscope.tv
+DOMAIN-SUFFIX,pixel.facebook.com
 DOMAIN-SUFFIX,pixel.facebook.com+.achat-followers-instagram.com
-DOMAIN-SUFFIX,pixel.facebook.comdiscord-attachments-uploads-prd.storage.googleapis.com
 DOMAIN-SUFFIX,powersunitedvr.com
 DOMAIN-SUFFIX,pscp.tv
 DOMAIN-SUFFIX,pyrobot.org
