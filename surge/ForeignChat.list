@@ -1,4 +1,4 @@
-DOMAIN,fbcdn-a.akamaihd.net
+DOMAIN,developers.facebook.com
 DOMAIN,hammerandchisel.ssl.zendesk.com
 DOMAIN-SUFFIX,aboutfacebook.com
 DOMAIN-SUFFIX,accessfacebookfromschool.com
@@ -415,7 +415,7 @@ DOMAIN-SUFFIX,gacebook.com
 DOMAIN-SUFFIX,gameroom.com
 DOMAIN-SUFFIX,gfacecbook.com
 DOMAIN-SUFFIX,graph-fallback.instagram.com
-DOMAIN-SUFFIX,graph-fallback.instagram.comdevelopers.facebook.com
+DOMAIN-SUFFIX,graph-fallback.instagram.comfbcdn-a.akamaihd.net
 DOMAIN-SUFFIX,graph.instagram.com
 DOMAIN-SUFFIX,graph.org
 DOMAIN-SUFFIX,graph.whatsapp.com
