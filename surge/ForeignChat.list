@@ -418,9 +418,6 @@ DOMAIN-SUFFIX,graph-fallback.instagram.comdiscord-attachments-uploads-prd.storag
 DOMAIN-SUFFIX,graph-fallback.instagram.comfbcdn-a.akamaihd.net
 DOMAIN-SUFFIX,graph.instagram.com
 DOMAIN-SUFFIX,graph.org
-DOMAIN-SUFFIX,graph.whatsapp.com
-DOMAIN-SUFFIX,graph.whatsapp.net
-DOMAIN-SUFFIX,graph.whatsapp.net+.twitter.jp
 DOMAIN-SUFFIX,groups.com
 DOMAIN-SUFFIX,hackerfacebook.com
 DOMAIN-SUFFIX,hackfacebook.com
@@ -612,6 +609,7 @@ DOMAIN-SUFFIX,whatsapp.net
 DOMAIN-SUFFIX,whatsapp.org
 DOMAIN-SUFFIX,whatsapp.tv
 DOMAIN-SUFFIX,whatsappbrand.com
+DOMAIN-SUFFIX,whatsappbrand.com+.twitter.jp
 DOMAIN-SUFFIX,whyfacebook.com
 DOMAIN-SUFFIX,workplace.com
 DOMAIN-SUFFIX,workplaceusecases.com
