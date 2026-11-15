@@ -414,7 +414,7 @@ DOMAIN-SUFFIX,futureofbusinesssurvey.org
 DOMAIN-SUFFIX,gacebook.com
 DOMAIN-SUFFIX,gameroom.com
 DOMAIN-SUFFIX,gfacecbook.com
-DOMAIN-SUFFIX,graph-fallback.instagram.comdiscord-attachments-uploads-prd.storage.googleapis.com
+DOMAIN-SUFFIX,graph-fallback.instagram.com
 DOMAIN-SUFFIX,graph-fallback.instagram.comfbcdn-a.akamaihd.net
 DOMAIN-SUFFIX,graph.instagram.com
 DOMAIN-SUFFIX,graph.org
@@ -535,8 +535,8 @@ DOMAIN-SUFFIX,opengraphprotocol.com
 DOMAIN-SUFFIX,opengraphprotocol.org
 DOMAIN-SUFFIX,parse.com
 DOMAIN-SUFFIX,periscope.tv
-DOMAIN-SUFFIX,pixel.facebook.com
 DOMAIN-SUFFIX,pixel.facebook.com+.achat-followers-instagram.com
+DOMAIN-SUFFIX,pixel.facebook.comdiscord-attachments-uploads-prd.storage.googleapis.com
 DOMAIN-SUFFIX,powersunitedvr.com
 DOMAIN-SUFFIX,pscp.tv
 DOMAIN-SUFFIX,pyrobot.org
